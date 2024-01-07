@@ -1,8 +1,13 @@
 ﻿@page "/dashboard"
-@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
 
 <PageTitle>Dashboard</PageTitle>
 
-<h1>Dashboard</h1>
+<h1>You are authenticated to a interview scheduler dashboard</h1>
 
-<p>This is an application dashboard</p>
+<AuthorizeView>
+    Hello @context.User.Identity?.Name!
+</AuthorizeView>
