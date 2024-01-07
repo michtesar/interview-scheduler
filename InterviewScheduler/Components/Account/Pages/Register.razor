@@ -33,6 +33,17 @@
                 <ValidationMessage For="() => Input.Email" class="text-danger"/>
             </div>
             <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.FirstName" class="form-control" aria-required="true" placeholder="First Name"/>
+                <label for="first-name">First Name</label>
+                <ValidationMessage For="() => Input.FirstName" class="text-danger"/>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.LastName" class="form-control" aria-required="true" placeholder="Last Name"/>
+                <label for="last-name">Last Name</label>
+                <ValidationMessage For="() => Input.LastName" class="text-danger"/>
+            </div>
+            <div class="form-floating mb-3">
                 <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password"/>
                 <label for="password">Password</label>
                 <ValidationMessage For="() => Input.Password" class="text-danger"/>
@@ -63,6 +74,11 @@
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        
+        // Set user's name
+        user.FirstName = Input.FirstName;
+        user.LastName = Input.LastName;
+        
         var result = await UserManager.CreateAsync(user, Input.Password);
 
         if (!result.Succeeded)
@@ -133,6 +149,14 @@
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = "";
+        
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; } = "";
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; } = "";
     }
 
 }
