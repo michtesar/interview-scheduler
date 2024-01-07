@@ -10,3 +10,4 @@ riderModule.iml
 # SQLite database files
 *.db-shm
 *.db-wal
+*.db
